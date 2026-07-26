@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triple Diamond Property Management, L.L.C.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  color: #0a1628;
+  background-color: #faf8f4;
+  line-height: 1.7;
+}
+
+/* ---- NAV ---- */
+
+.nav-bar {
+  border-bottom: 1px solid #d8d3c8;
+  background: #faf8f4;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.nav-wordmark {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0a1628;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #0a1628;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: #c4a265;
+}
+
+.nav-cta {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c4a265;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.nav-cta:hover {
+  color: #0a1628;
+}
+
+/* Mobile menu toggle */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: #0a1628;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.menu-toggle.active span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ---- HERO ---- */
+
+.hero {
+  padding: 120px 24px 140px;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #c4a265;
+  margin-bottom: 40px;
+}
+
+.hero-headline {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 400;
+  font-size: 2.5rem;
+  line-height: 1.3;
+  color: #0a1628;
+  max-width: 680px;
+  margin: 0 auto 32px;
+}
+
+.hero-subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: #5a6b7a;
+  max-width: 560px;
+  margin: 0 auto 48px;
+}
+
+.hero-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: #0a1628;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: #c4a265;
+}
+
+.hero-link:hover {
+  color: #c4a265;
+}
+
+/* ---- PATHS ---- */
+
+.paths {
+  padding: 80px 24px 100px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.path-item {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.path-item:last-child {
+  margin-bottom: 0;
+}
+
+.path-rule {
+  width: 48px;
+  height: 1px;
+  background: #c4a265;
+  margin: 0 auto 32px;
+  border: none;
+}
+
+.path-heading {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: #0a1628;
+  margin-bottom: 16px;
+}
+
+.path-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: #5a6b7a;
+  margin-bottom: 20px;
+}
+
+.path-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #0a1628;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: #c4a265;
+}
+
+.path-link:hover {
+  color: #c4a265;
+}
+
+/* ---- PHOTO BREAK ---- */
+
+.photo-break {
+  width: 100%;
+  line-height: 0;
+}
+
+.photo-break img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---- MISSION ---- */
+
+.mission {
+  padding: 100px 24px;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mission-headline {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 400;
+  font-size: 1.75rem;
+  line-height: 1.45;
+  color: #0a1628;
+  margin-bottom: 28px;
+}
+
+.mission-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  color: #5a6b7a;
+  margin-bottom: 40px;
+}
+
+.mission-values {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #0a1628;
+  line-height: 2;
+}
+
+.mission-values-sep {
+  color: #c4a265;
+  margin: 0 8px;
+}
+
+/* ---- PROPERTIES ---- */
+
+.properties {
+  padding: 80px 24px 100px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.properties-heading {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #0a1628;
+  margin-bottom: 40px;
+}
+
+.properties-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+}
+
+.properties-table thead th {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5a6b7a;
+  text-align: left;
+  padding: 0 0 14px 0;
+  border-bottom: 1px solid #d8d3c8;
+}
+
+.properties-table thead th:last-child {
+  text-align: right;
+}
+
+.properties-table tbody td {
+  padding: 18px 0;
+  border-bottom: 1px solid #d8d3c8;
+  color: #0a1628;
+  vertical-align: top;
+}
+
+.properties-table tbody td:last-child {
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.prop-address {
+  font-weight: 500;
+}
+
+.prop-details {
+  color: #5a6b7a;
+  font-size: 0.8125rem;
+  margin-top: 2px;
+}
+
+/* ---- PROCESS ---- */
+
+.process {
+  padding: 80px 24px 100px;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.process-heading {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #0a1628;
+  margin-bottom: 48px;
+}
+
+.process-item {
+  margin-bottom: 40px;
+}
+
+.process-item:last-child {
+  margin-bottom: 0;
+}
+
+.process-label {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: #0a1628;
+  margin-bottom: 8px;
+}
+
+.process-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: #5a6b7a;
+}
+
+/* ---- FAQ ---- */
+
+.faq {
+  padding: 80px 24px 100px;
+  max-width: 680px;
+  margin: 0 auto;
+  border-top: 1px solid #d8d3c8;
+}
+
+.faq-heading {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #0a1628;
+  margin-bottom: 48px;
+}
+
+.faq-item {
+  margin-bottom: 32px;
+}
+
+.faq-item:last-child {
+  margin-bottom: 0;
+}
+
+.faq-term {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: #0a1628;
+  margin-bottom: 8px;
+}
+
+.faq-answer {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: #5a6b7a;
+}
+
+/* ---- CTA ---- */
+
+.cta-section {
+  background: #0a1628;
+  padding: 100px 24px;
+  text-align: center;
+}
+
+.cta-headline {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 400;
+  font-size: 1.75rem;
+  line-height: 1.4;
+  color: #faf8f4;
+  margin-bottom: 20px;
+}
+
+.cta-subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: #5a6b7a;
+  max-width: 480px;
+  margin: 0 auto 36px;
+}
+
+.cta-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c4a265;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.cta-link:hover {
+  color: #faf8f4;
+}
+
+/* ---- FOOTER ---- */
+
+.footer {
+  background: #0a1628;
+  border-top: 1px solid rgba(250,248,244,0.08);
+  padding: 48px 24px;
+}
+
+.footer-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-name {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #faf8f4;
+  margin-bottom: 16px;
+}
+
+.footer-address {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8125rem;
+  color: #5a6b7a;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.footer-address a {
+  color: #5a6b7a;
+  text-decoration: none;
+}
+
+.footer-address a:hover {
+  color: #c4a265;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  list-style: none;
+  margin-bottom: 32px;
+}
+
+.footer-links a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(250,248,244,0.5);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #c4a265;
+}
+
+.footer-copy {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(250,248,244,0.25);
+}
+
+/* ---- MOBILE ---- */
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: #faf8f4;
+    border-bottom: 1px solid #d8d3c8;
+    flex-direction: column;
+    padding: 24px;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-cta-wrap {
+    display: none;
+  }
+
+  .hero {
+    padding: 80px 24px 100px;
+  }
+
+  .hero-headline {
+    font-size: 1.75rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .photo-break img {
+    height: 280px;
+  }
+
+  .mission {
+    padding: 72px 24px;
+  }
+
+  .mission-headline {
+    font-size: 1.375rem;
+  }
+
+  .mission-values {
+    font-size: 0.75rem;
+  }
+
+  .properties-table thead {
+    display: none;
+  }
+
+  .properties-table,
+  .properties-table tbody,
+  .properties-table tr,
+  .properties-table td {
+    display: block;
+  }
+
+  .properties-table tbody tr {
+    padding: 18px 0;
+    border-bottom: 1px solid #d8d3c8;
+  }
+
+  .properties-table tbody td {
+    padding: 0;
+    border-bottom: none;
+    text-align: left;
+  }
+
+  .properties-table tbody td:last-child {
+    text-align: left;
+    margin-top: 4px;
+    color: #c4a265;
+  }
+
+  .cta-headline {
+    font-size: 1.375rem;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 60px 20px 80px;
+  }
+
+  .hero-headline {
+    font-size: 1.5rem;
+  }
+
+  .paths {
+    padding: 60px 20px 80px;
+  }
+
+  .mission {
+    padding: 60px 20px;
+  }
+
+  .properties {
+    padding: 60px 20px 80px;
+  }
+
+  .process {
+    padding: 60px 20px 80px;
+  }
+
+  .faq {
+    padding: 60px 20px 80px;
+  }
+
+  .cta-section {
+    padding: 72px 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-wordmark">Triple Diamond</a>
+    <button class="menu-toggle" aria-label="Menu" onclick="this.classList.toggle('active');document.getElementById('navLinks').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="owners.html">Owners</a></li>
+      <li><a href="residents.html">Residents</a></li>
+      <li><a href="referrals.html">Realtors</a></li>
+      <li><a href="rentals.html">Rentals</a></li>
+      <li><a href="company.html">Company</a></li>
+    </ul>
+    <span class="nav-cta-wrap">
+      <a href="https://triplediamond.managebuilding.com/Resident/rental-application/new" class="nav-cta">Apply</a>
+    </span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Shelby Township, Michigan</p>
+  <h1 class="hero-headline">Good property management starts with answering the phone.</h1>
+  <p class="hero-subtitle">A Shelby Township team for owners, residents, and Realtors who want straight answers and a real person on the other end.</p>
+  <a href="rentals.html" class="hero-link">View available properties &rarr;</a>
+</section>
+
+<!-- AUDIENCE PATHS -->
+<section class="paths">
+  <div class="path-item">
+    <hr class="path-rule">
+    <h2 class="path-heading">For Property Owners</h2>
+    <p class="path-text">Tell us where it is and what&rsquo;s happening. A management plan built from the market, the address, and the actual condition of the property.</p>
+    <a href="owners.html" class="path-link">Owner services &rarr;</a>
+  </div>
+  <div class="path-item">
+    <hr class="path-rule">
+    <h2 class="path-heading">For Residents</h2>
+    <p class="path-text">See what&rsquo;s open, apply, or get to your account. Current homes, applications, documents, and access.</p>
+    <a href="residents.html" class="path-link">Resident portal &rarr;</a>
+  </div>
+  <div class="path-item">
+    <hr class="path-rule">
+    <h2 class="path-heading">For Realtors</h2>
+    <p class="path-text">Make the introduction. We&rsquo;ll handle the management conversation without stepping on the relationship.</p>
+    <a href="referrals.html" class="path-link">Referral program &rarr;</a>
+  </div>
+</section>
+
+<!-- PHOTO BREAK -->
+<div class="photo-break">
+  <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80" alt="Residential property" loading="lazy">
+</div>
+
+<!-- MISSION -->
+<section class="mission">
+  <h2 class="mission-headline">The work is personal, even when the paperwork isn&rsquo;t.</h2>
+  <p class="mission-body">Every address has its own market, condition, people, and pressure points. Triple Diamond builds the plan around those facts.</p>
+  <p class="mission-values">
+    Open communication<span class="mission-values-sep">&middot;</span>Transparent decisions<span class="mission-values-sep">&middot;</span>Personal solutions<span class="mission-values-sep">&middot;</span>Continuous improvement
+  </p>
+</section>
+
+<!-- PROPERTIES -->
+<section class="properties">
+  <h2 class="properties-heading">Available Properties</h2>
+  <table class="properties-table">
+    <thead>
+      <tr>
+        <th>Address</th>
+        <th style="text-align:right">Rent</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="prop-address">15829 Minock St, Detroit</div>
+          <div class="prop-details">3 bd / 1.5 ba &nbsp;&middot;&nbsp; 1,200 sqft</div>
+        </td>
+        <td>$1,550/mo</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="prop-address">11259 Chapp Ave, Warren</div>
+          <div class="prop-details">3 bd / 1.5 ba &nbsp;&middot;&nbsp; 1,901 sqft</div>
+        </td>
+        <td>$1,900/mo</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="prop-address">28777 Berwick Ct, New Baltimore</div>
+          <div class="prop-details">2 bd / 2 ba &nbsp;&middot;&nbsp; 1,659 sqft</div>
+        </td>
+        <td>$2,100/mo</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <h2 class="process-heading">How It Works</h2>
+  <div class="process-item">
+    <p class="process-label">What you bring</p>
+    <p class="process-text">A property, a home, an application, an account, or a referral.</p>
+  </div>
+  <div class="process-item">
+    <p class="process-label">What stays secure</p>
+    <p class="process-text">Applications and account details remain inside Buildium.</p>
+  </div>
+  <div class="process-item">
+    <p class="process-label">Who answers</p>
+    <p class="process-text">Questions that need judgment come back to Triple Diamond.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <h2 class="faq-heading">Common Questions</h2>
+  <div class="faq-item">
+    <p class="faq-term">Where do residents sign in?</p>
+    <p class="faq-answer">The <a href="https://triplediamond.managebuilding.com/Resident/portal/login" style="color:#c4a265;text-decoration:underline;text-underline-offset:3px">Buildium portal</a> handles all resident account access, payments, and maintenance requests.</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-term">How is owner pricing determined?</p>
+    <p class="faq-answer">Market conditions, location, total units, and condition. Every property is assessed individually.</p>
+  </div>
+  <div class="faq-item">
+    <p class="faq-term">Can a Realtor refer an owner?</p>
+    <p class="faq-answer">Yes. Triple Diamond operates a Michigan brokerage referral program for licensed agents.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="cta-headline">Put the address on the table.</h2>
+  <p class="cta-subtitle">Tell us what&rsquo;s going on. We&rsquo;ll tell you where to start.</p>
+  <a href="company.html#contact" class="cta-link">Get in touch &rarr;</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-name">Triple Diamond Property Management, L.L.C.</p>
+    <p class="footer-address">
+      49433 Hayes Road, Suite A, Shelby Township, MI 48315<br>
+      <a href="tel:5863211391">586-321-1391</a> &nbsp;&middot;&nbsp; <a href="mailto:admin@triplediamondrealty.com">admin@triplediamondrealty.com</a>
+    </p>
+    <ul class="footer-links">
+      <li><a href="owners.html">Owners</a></li>
+      <li><a href="residents.html">Residents</a></li>
+      <li><a href="referrals.html">Realtors</a></li>
+      <li><a href="rentals.html">Rentals</a></li>
+      <li><a href="company.html">Company</a></li>
+    </ul>
+    <p class="footer-copy">&copy; 2026 Triple Diamond Property Management, L.L.C.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triple Diamond Property Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #faf7f2;
+    --dark: #2c2420;
+    --text-light: #2c2420;
+    --text-dark: #faf7f2;
+    --accent: #c2785c;
+    --sage: #8a9a7c;
+    --muted: #7d746b;
+    --border: #ddd6cc;
+    --serif: 'Instrument Serif', serif;
+    --sans: 'Source Sans 3', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    font-weight: 400;
+    color: var(--text-light);
+    background: var(--bg);
+    line-height: 1.65;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 1px 12px rgba(44,36,32,0.08); }
+  .nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 72px;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 24px;
+    color: var(--text-light);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text-light); }
+  .nav-links .nav-signin {
+    font-size: 13px;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--muted);
+    opacity: 0.7;
+  }
+  .nav-links .nav-signin:hover { opacity: 1; color: var(--accent); }
+  .nav-apply {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 24px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 0;
+    transition: background 0.2s;
+  }
+  .nav-apply:hover { background: #a8654a; }
+
+  /* Mobile menu */
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text-light);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .menu-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-toggle.active span:nth-child(2) { opacity: 0; }
+  .menu-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    margin-top: 72px;
+  }
+  .hero-image {
+    background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80') center/cover no-repeat;
+    min-height: 500px;
+  }
+  .hero-content {
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 72px;
+  }
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+  }
+  .hero-headline {
+    font-family: var(--serif);
+    font-size: clamp(36px, 3.2vw, 52px);
+    color: var(--text-dark);
+    line-height: 1.15;
+    margin-bottom: 28px;
+  }
+  .hero-body {
+    font-size: 18px;
+    color: var(--text-dark);
+    opacity: 0.8;
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 44px;
+  }
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 16px 36px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid var(--accent);
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #a8654a; border-color: #a8654a; }
+  .btn-outline {
+    display: inline-block;
+    background: transparent;
+    color: var(--text-dark);
+    padding: 16px 36px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid rgba(250,247,242,0.3);
+    border-radius: 0;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--text-dark); }
+
+  /* ── AUDIENCE PATHS ── */
+  .audience {
+    padding: 120px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .audience-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 56px;
+  }
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .audience-large {
+    grid-column: 1 / -1;
+    max-width: 680px;
+    border-left: 4px solid var(--accent);
+    padding: 48px 56px;
+    background: #fff;
+  }
+  .audience-large h3 {
+    font-family: var(--serif);
+    font-size: 32px;
+    margin-bottom: 18px;
+    color: var(--text-light);
+  }
+  .audience-large p {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 520px;
+  }
+  .audience-small {
+    margin-left: auto;
+    max-width: 520px;
+    width: 100%;
+    padding: 36px 44px;
+    border-top: 1px solid var(--border);
+  }
+  .audience-small h3 {
+    font-family: var(--serif);
+    font-size: 26px;
+    margin-bottom: 12px;
+    color: var(--text-light);
+  }
+  .audience-small p {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 22px;
+  }
+  .link-arrow {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .link-arrow::after { content: ' \2192'; }
+  .link-arrow:hover { color: #a8654a; }
+
+  /* ── PHOTO BREAK ── */
+  .photo-break {
+    width: 100%;
+    overflow: hidden;
+  }
+  .photo-break img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 3 / 1;
+  }
+
+  /* ── MISSION ── */
+  .mission {
+    padding: 120px 48px;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .mission-quote {
+    font-family: var(--serif);
+    font-size: clamp(30px, 3vw, 44px);
+    color: var(--sage);
+    line-height: 1.3;
+    margin-bottom: 48px;
+  }
+  .mission-quote::before { content: '\201C'; }
+  .mission-quote::after { content: '\201D'; }
+  .mission-body {
+    font-size: 18px;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 600px;
+    margin: 0 auto 48px;
+  }
+  .mission-values {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px 36px;
+    font-size: 15px;
+    color: var(--text-light);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .mission-values span { white-space: nowrap; }
+  .mission-values span + span::before {
+    content: '\00B7';
+    margin-right: 36px;
+    color: var(--border);
+    font-weight: 400;
+  }
+
+  /* ── PROPERTIES ── */
+  .properties {
+    padding: 100px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .properties-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 56px;
+  }
+  .properties-header h2 {
+    font-family: var(--serif);
+    font-size: 38px;
+    color: var(--text-light);
+  }
+  .properties-header a {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .properties-header a:hover { color: #a8654a; }
+  .property-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: baseline;
+    gap: 40px;
+    padding: 28px 0;
+    border-top: 1px solid var(--border);
+  }
+  .property-row:last-child { border-bottom: 1px solid var(--border); }
+  .property-address {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--text-light);
+  }
+  .property-specs {
+    font-size: 15px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .property-price {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-light);
+    white-space: nowrap;
+  }
+
+  /* ── PROCESS ── */
+  .process {
+    background: var(--dark);
+    padding: 120px 48px;
+  }
+  .process-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .process-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 56px;
+  }
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 64px;
+  }
+  .process-block h3 {
+    font-family: var(--serif);
+    font-size: 28px;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+  }
+  .process-block p {
+    font-size: 16px;
+    color: var(--text-dark);
+    opacity: 0.7;
+    line-height: 1.75;
+  }
+
+  /* ── FAQ ── */
+  .faq {
+    padding: 100px 48px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .faq h2 {
+    font-family: var(--serif);
+    font-size: 38px;
+    color: var(--text-light);
+    margin-bottom: 56px;
+  }
+  .faq-item {
+    border-top: 1px solid var(--border);
+  }
+  .faq-item:last-child { border-bottom: 1px solid var(--border); }
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 24px 0;
+    font-family: var(--sans);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-light);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .faq-question::after {
+    content: '+';
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: transform 0.3s;
+  }
+  .faq-item.open .faq-question::after {
+    content: '\2212';
+  }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+  }
+  .faq-item.open .faq-answer {
+    max-height: 300px;
+    padding-bottom: 28px;
+  }
+  .faq-answer p {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  /* ── CTA ── */
+  .cta {
+    background: var(--dark);
+    padding: 120px 48px;
+    text-align: center;
+  }
+  .cta h2 {
+    font-family: var(--serif);
+    font-size: clamp(34px, 3.5vw, 50px);
+    color: var(--text-dark);
+    margin-bottom: 20px;
+  }
+  .cta p {
+    font-size: 18px;
+    color: var(--text-dark);
+    opacity: 0.7;
+    margin-bottom: 44px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta .btn-primary { padding: 18px 48px; font-size: 15px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(250,247,242,0.08);
+    padding: 64px 48px 48px;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: start;
+  }
+  .footer-brand {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+  }
+  .footer-info {
+    font-size: 14px;
+    color: var(--text-dark);
+    opacity: 0.5;
+    line-height: 1.8;
+  }
+  .footer-info a {
+    color: var(--text-dark);
+    opacity: 0.5;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .footer-info a:hover { opacity: 0.8; }
+  .footer-links {
+    list-style: none;
+    display: flex;
+    gap: 32px;
+  }
+  .footer-links a {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-dark);
+    opacity: 0.5;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .footer-links a:hover { opacity: 0.9; }
+  .footer-copy {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid rgba(250,247,242,0.06);
+    font-size: 13px;
+    color: var(--text-dark);
+    opacity: 0.3;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .process-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero-content { padding: 60px 48px; }
+  }
+
+  @media (max-width: 768px) {
+    .nav-inner { padding: 0 24px; }
+    .nav-links {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--bg);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 40px 32px;
+      gap: 28px;
+      border-top: 1px solid var(--border);
+    }
+    .nav-links.open { display: flex; }
+    .menu-toggle { display: flex; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .hero-image { min-height: 50vh; }
+    .hero-content { padding: 56px 24px; }
+
+    .audience { padding: 80px 24px; }
+    .audience-grid { grid-template-columns: 1fr; }
+    .audience-large { max-width: 100%; padding: 36px 32px; }
+    .audience-small { margin-left: 0; max-width: 100%; }
+
+    .mission { padding: 80px 24px; }
+
+    .properties { padding: 80px 24px; }
+    .property-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 24px 0;
+    }
+
+    .process { padding: 80px 24px; }
+    .faq { padding: 80px 24px; }
+    .cta { padding: 80px 24px; }
+    footer { padding: 48px 24px 36px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    .footer-links { flex-wrap: wrap; gap: 20px; }
+    .properties-header { flex-direction: column; gap: 12px; }
+
+    .mission-values span + span::before { margin-right: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Triple Diamond</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="owners.html">Owners</a></li>
+      <li><a href="residents.html">Residents</a></li>
+      <li><a href="referrals.html">Realtors</a></li>
+      <li><a href="rentals.html">Rentals</a></li>
+      <li><a href="company.html">Company</a></li>
+      <li><a href="https://triplediamond.managebuilding.com/Resident/portal/login" class="nav-signin">Resident sign in</a></li>
+      <li><a href="https://triplediamond.managebuilding.com/Resident/rental-application/new" class="nav-apply">Apply Now</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-image" role="img" aria-label="Luxury home exterior"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Michigan Property Management</p>
+    <h1 class="hero-headline">Good property management starts with answering the phone.</h1>
+    <p class="hero-body">A Shelby Township team for owners, residents, and Realtors who want straight answers and a real person on the other end.</p>
+    <div class="hero-buttons">
+      <a href="rentals.html" class="btn-primary">View rentals</a>
+      <a href="owners.html" class="btn-outline">For owners</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── AUDIENCE PATHS ── -->
+<section class="audience">
+  <p class="audience-label">Who we work with</p>
+  <div class="audience-grid">
+    <div class="audience-large">
+      <h3>Owners</h3>
+      <p>Tell us where it is and what&rsquo;s happening. A management plan built from the market, the address, and the actual condition of the property.</p>
+      <a href="owners.html" class="link-arrow">Learn more</a>
+    </div>
+    <div class="audience-small">
+      <h3>Residents</h3>
+      <p>See what&rsquo;s open, apply, or get to your account.</p>
+      <a href="residents.html" class="link-arrow">Get started</a>
+    </div>
+    <div class="audience-small">
+      <h3>Realtors</h3>
+      <p>Make the introduction.</p>
+      <a href="referrals.html" class="link-arrow">Refer a client</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHOTO BREAK ── -->
+<div class="photo-break">
+  <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=80" alt="Residential property exterior" loading="lazy">
+</div>
+
+<!-- ── MISSION ── -->
+<section class="mission">
+  <p class="mission-quote">The work is personal, even when the paperwork isn&rsquo;t.</p>
+  <p class="mission-body">Every address has its own market, condition, people, and pressure points.</p>
+  <div class="mission-values">
+    <span>Open communication</span>
+    <span>Transparent decisions</span>
+    <span>Personal solutions</span>
+    <span>Continuous improvement</span>
+  </div>
+</section>
+
+<!-- ── PROPERTIES ── -->
+<section class="properties">
+  <div class="properties-header">
+    <h2>Current Rentals</h2>
+    <a href="rentals.html">View all listings &rarr;</a>
+  </div>
+  <div class="property-row">
+    <div class="property-address">15829 Minock St, Detroit</div>
+    <div class="property-specs">3 bd &middot; 1.5 ba &middot; 1,200 sqft</div>
+    <div class="property-price">$1,550/mo</div>
+  </div>
+  <div class="property-row">
+    <div class="property-address">11259 Chapp Ave, Warren</div>
+    <div class="property-specs">3 bd &middot; 1.5 ba &middot; 1,901 sqft</div>
+    <div class="property-price">$1,900/mo</div>
+  </div>
+  <div class="property-row">
+    <div class="property-address">28777 Berwick Ct, New Baltimore</div>
+    <div class="property-specs">2 bd &middot; 2 ba &middot; 1,659 sqft</div>
+    <div class="property-price">$2,100/mo</div>
+  </div>
+</section>
+
+<!-- ── PROCESS ── -->
+<section class="process">
+  <div class="process-inner">
+    <p class="process-label">How it works</p>
+    <div class="process-grid">
+      <div class="process-block">
+        <h3>What you bring</h3>
+        <p>The address, the situation, and what you need from a management company. We don&rsquo;t start with a sales pitch&mdash;we start with the property. Market data, condition assessment, and a management plan that fits the actual asset.</p>
+      </div>
+      <div class="process-block">
+        <h3>What stays secure</h3>
+        <p>Your financials, tenant records, and property documents live in a secure owner portal. Monthly statements, year-end reporting, and maintenance history&mdash;accessible anytime, no phone call required.</p>
+      </div>
+      <div class="process-block">
+        <h3>Who answers</h3>
+        <p>A real person in Shelby Township. Not a call center, not a chatbot, not a voicemail that never gets returned. You get a direct line to the person managing your property.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="faq">
+  <h2>Common Questions</h2>
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">What areas do you manage properties in?</button>
+    <div class="faq-answer">
+      <p>We manage residential properties throughout Macomb, Oakland, and Wayne counties. Our office is in Shelby Township, and most of our portfolio is within a 30-mile radius&mdash;close enough to respond quickly when something needs attention.</p>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">How do you determine the right rental price?</button>
+    <div class="faq-answer">
+      <p>We pull comparable rental data for the specific address, factor in the property&rsquo;s condition and features, and look at current market velocity. The goal is a price that fills the unit quickly with a qualified tenant&mdash;not a number that sounds good but sits empty for three months.</p>
+    </div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">What does the onboarding process look like?</button>
+    <div class="faq-answer">
+      <p>We start with a conversation about the property and your goals. Then we do a physical assessment, pull market data, and come back with a management plan and pricing recommendation. If we&rsquo;re a fit, paperwork takes a day and we can usually have the property listed within a week.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta">
+  <h2>Put the address on the table.</h2>
+  <p>Tell us what&rsquo;s going on. We&rsquo;ll tell you where to start.</p>
+  <a href="company.html#contact" class="btn-primary">Get in touch</a>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Triple Diamond</div>
+      <div class="footer-info">
+        49433 Hayes Road, Suite A<br>
+        Shelby Township, MI 48315<br>
+        <a href="tel:5863211391">586-321-1391</a><br>
+        <a href="mailto:admin@triplediamondrealty.com">admin@triplediamondrealty.com</a>
+      </div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="owners.html">Owners</a></li>
+      <li><a href="residents.html">Residents</a></li>
+      <li><a href="referrals.html">Realtors</a></li>
+      <li><a href="rentals.html">Rentals</a></li>
+      <li><a href="company.html">Company</a></li>
+    </ul>
+  </div>
+  <div class="footer-copy">&copy; 2026 Triple Diamond Property Management, L.L.C. All rights reserved.</div>
+</footer>
+
+<script>
+  // Nav scroll shadow
+  window.addEventListener('scroll', function() {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // Mobile menu
+  document.getElementById('menuToggle').addEventListener('click', function() {
+    this.classList.toggle('active');
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('#navLinks a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      document.getElementById('menuToggle').classList.remove('active');
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+
+  // FAQ accordion
+  function toggleFaq(btn) {
+    var item = btn.parentElement;
+    var wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(el) { el.classList.remove('open'); });
+    if (!wasOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triple Diamond Property Management, L.L.C.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --cream: #f7f3eb;
+  --brown: #2a2520;
+  --green: #2d4a3e;
+  --copper: #a67c52;
+  --muted: #7a7268;
+  --white: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  color: var(--brown);
+  background: var(--cream);
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--cream);
+  border-bottom: 1px solid rgba(42,37,32,.08);
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background .3s;
+}
+
+.nav-logo {
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: .01em;
+  color: var(--green);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--brown);
+  text-decoration: none;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  transition: color .2s;
+}
+
+.nav-links a:hover {
+  color: var(--green);
+}
+
+.nav-cta {
+  display: inline-block;
+  background: var(--green);
+  color: var(--cream) !important;
+  padding: .5rem 1.25rem;
+  border-radius: 2px;
+  font-size: .8rem !important;
+  font-weight: 600 !important;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background .2s;
+}
+
+.nav-cta:hover {
+  background: #1e3a2f;
+}
+
+.nav-signin {
+  font-size: .78rem !important;
+  color: var(--muted) !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+.nav-signin:hover {
+  color: var(--green) !important;
+}
+
+/* hamburger */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 28px;
+  height: 20px;
+  position: relative;
+  z-index: 110;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--brown);
+  position: absolute;
+  left: 0;
+  transition: transform .3s, opacity .2s;
+}
+
+.menu-toggle span:nth-child(1) { top: 0; }
+.menu-toggle span:nth-child(2) { top: 9px; }
+.menu-toggle span:nth-child(3) { top: 18px; }
+
+.menu-open .menu-toggle span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+.menu-open .menu-toggle span:nth-child(2) { opacity: 0; }
+.menu-open .menu-toggle span:nth-child(3) { top: 9px; transform: rotate(-45deg); }
+
+/* mobile overlay */
+.mobile-nav {
+  display: none;
+}
+
+/* ---- HERO ---- */
+.hero {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 64px);
+}
+
+.hero-photo {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-content {
+  background: var(--green);
+  color: var(--cream);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(2rem, 5vw, 4.5rem);
+}
+
+.hero-eyebrow {
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(247,243,235,.55);
+  margin-bottom: 1.5rem;
+}
+
+.hero-headline {
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  max-width: 540px;
+}
+
+.hero-body {
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(247,243,235,.78);
+  max-width: 440px;
+  margin-bottom: 2rem;
+}
+
+.hero-link {
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--copper);
+  text-decoration: none;
+  letter-spacing: .03em;
+  transition: color .2s;
+}
+
+.hero-link:hover {
+  color: #c49565;
+}
+
+/* ---- AUDIENCE PATHS ---- */
+.audience {
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 4vw, 3rem);
+  background: var(--white);
+}
+
+.audience-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.audience-label {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3rem;
+}
+
+.audience-primary {
+  position: relative;
+  height: 420px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  border-radius: 2px;
+}
+
+.audience-primary img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.audience-primary-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(42,37,32,.55);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(2rem, 4vw, 3.5rem);
+}
+
+.audience-primary-overlay h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: .6rem;
+}
+
+.audience-primary-overlay p {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: rgba(255,255,255,.82);
+  max-width: 460px;
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+.audience-primary-overlay a {
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--copper);
+  text-decoration: none;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.audience-primary-overlay a:hover {
+  color: #c49565;
+}
+
+.audience-secondary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.audience-card {
+  border-left: 3px solid var(--green);
+  padding: 2rem 1.75rem;
+  background: var(--cream);
+}
+
+.audience-card h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--brown);
+  margin-bottom: .5rem;
+}
+
+.audience-card p {
+  font-size: .95rem;
+  font-weight: 300;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.audience-card a {
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--green);
+  text-decoration: none;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.audience-card a:hover {
+  color: var(--copper);
+}
+
+/* ---- PHOTO BREAK ---- */
+.photo-break {
+  width: 100%;
+  height: 55vh;
+  min-height: 340px;
+  max-height: 560px;
+  overflow: hidden;
+}
+
+.photo-break img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---- MISSION ---- */
+.mission {
+  background: var(--cream);
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 4vw, 3rem);
+}
+
+.mission-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.mission-quote {
+  border-left: 3px solid var(--green);
+  padding-left: 1.75rem;
+}
+
+.mission-headline {
+  font-size: clamp(1.6rem, 2.5vw, 2.25rem);
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--brown);
+  margin-bottom: 1.25rem;
+}
+
+.mission-sub {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.mission-values {
+  padding-top: .5rem;
+}
+
+.mission-values-label {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.mission-values ul {
+  list-style: none;
+}
+
+.mission-values li {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--brown);
+  padding: .75rem 0;
+  border-bottom: 1px solid rgba(42,37,32,.08);
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.mission-values li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--copper);
+  flex-shrink: 0;
+}
+
+/* ---- PROPERTIES ---- */
+.properties {
+  background: var(--white);
+  padding: clamp(4rem, 8vw, 7rem) 0;
+}
+
+.properties-header {
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  max-width: 1140px;
+  margin: 0 auto 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.properties-label {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .5rem;
+}
+
+.properties-headline {
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-weight: 300;
+  color: var(--brown);
+}
+
+.properties-all {
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--green);
+  text-decoration: none;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.properties-all:hover {
+  color: var(--copper);
+}
+
+.properties-strip {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--copper) transparent;
+}
+
+.properties-strip::-webkit-scrollbar {
+  height: 4px;
+}
+
+.properties-strip::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.properties-strip::-webkit-scrollbar-thumb {
+  background: var(--copper);
+  border-radius: 2px;
+}
+
+.prop-card {
+  flex: 0 0 360px;
+  scroll-snap-align: start;
+  background: var(--cream);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.prop-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.prop-info {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.prop-price {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--green);
+  margin-bottom: .25rem;
+}
+
+.prop-address {
+  font-size: .95rem;
+  font-weight: 400;
+  color: var(--brown);
+  margin-bottom: .35rem;
+}
+
+.prop-details {
+  font-size: .82rem;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+/* ---- PROCESS ---- */
+.process {
+  background: var(--cream);
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 4vw, 3rem);
+}
+
+.process-inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.process-label {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3rem;
+}
+
+.process-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2rem;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid rgba(42,37,32,.08);
+  align-items: start;
+}
+
+.process-row:first-of-type {
+  border-top: 1px solid rgba(42,37,32,.08);
+}
+
+.process-row-title {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--brown);
+}
+
+.process-row-body {
+  font-size: .95rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ---- FAQ ---- */
+.faq {
+  background: var(--green);
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 4vw, 3rem);
+}
+
+.faq-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.faq-label {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(247,243,235,.45);
+  margin-bottom: 3rem;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(247,243,235,.12);
+}
+
+.faq-item:first-child {
+  border-top: 1px solid rgba(247,243,235,.12);
+}
+
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 1.5rem 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  font-family: 'Outfit', sans-serif;
+}
+
+.faq-question span {
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1.4;
+}
+
+.faq-icon {
+  font-size: 1.25rem;
+  color: rgba(247,243,235,.4);
+  flex-shrink: 0;
+  transition: transform .3s;
+  font-weight: 300;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease, padding .35s ease;
+}
+
+.faq-answer-inner {
+  padding-bottom: 1.5rem;
+  font-size: .95rem;
+  font-weight: 300;
+  color: rgba(247,243,235,.68);
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 300px;
+}
+
+/* ---- CTA ---- */
+.cta-section {
+  background: var(--cream);
+  padding: clamp(5rem, 10vw, 8rem) clamp(1.25rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.cta-headline {
+  font-size: clamp(1.8rem, 3vw, 2.75rem);
+  font-weight: 300;
+  color: var(--brown);
+  margin-bottom: 2rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--green);
+  color: var(--cream);
+  padding: .85rem 2.5rem;
+  border-radius: 2px;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: 'Outfit', sans-serif;
+  transition: background .2s;
+}
+
+.cta-btn:hover {
+  background: #1e3a2f;
+}
+
+/* ---- FOOTER ---- */
+footer {
+  background: var(--green);
+  color: var(--cream);
+  padding: clamp(3rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3rem) 2rem;
+}
+
+.footer-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 3rem;
+}
+
+.footer-brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: .75rem;
+  letter-spacing: .01em;
+}
+
+.footer-address {
+  font-size: .85rem;
+  font-weight: 300;
+  color: rgba(247,243,235,.6);
+  line-height: 1.7;
+}
+
+.footer-address a {
+  color: rgba(247,243,235,.6);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.footer-address a:hover {
+  color: var(--copper);
+}
+
+.footer-col-title {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(247,243,235,.4);
+  margin-bottom: 1rem;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col li {
+  margin-bottom: .5rem;
+}
+
+.footer-col a {
+  font-size: .88rem;
+  font-weight: 300;
+  color: rgba(247,243,235,.7);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.footer-col a:hover {
+  color: var(--cream);
+}
+
+.footer-bottom {
+  max-width: 1140px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(247,243,235,.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .78rem;
+  color: rgba(247,243,235,.35);
+  font-weight: 300;
+}
+
+.footer-bottom a {
+  color: rgba(247,243,235,.35);
+  text-decoration: none;
+}
+
+.footer-bottom a:hover {
+  color: var(--cream);
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 900px) {
+  .nav-links {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 105;
+    background: var(--cream);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  .mobile-nav.active {
+    display: flex;
+  }
+
+  .mobile-nav a {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--brown);
+    text-decoration: none;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .mobile-nav a:last-child {
+    background: var(--green);
+    color: var(--cream);
+    padding: .6rem 1.5rem;
+    border-radius: 2px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .hero-photo {
+    height: 50vw;
+    min-height: 260px;
+    max-height: 400px;
+  }
+
+  .hero-content {
+    padding: 3rem 1.5rem 3.5rem;
+  }
+
+  .audience-primary {
+    height: 320px;
+  }
+
+  .audience-secondary {
+    grid-template-columns: 1fr;
+  }
+
+  .mission-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .process-row {
+    grid-template-columns: 1fr;
+    gap: .5rem;
+  }
+
+  .prop-card {
+    flex: 0 0 300px;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: .5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-headline {
+    font-size: 1.75rem;
+  }
+
+  .audience-primary {
+    height: 260px;
+  }
+
+  .prop-card {
+    flex: 0 0 85vw;
+  }
+
+  .properties-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .75rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Triple Diamond</a>
+  <ul class="nav-links">
+    <li><a href="owners.html">Owners</a></li>
+    <li><a href="residents.html">Residents</a></li>
+    <li><a href="referrals.html">Realtors</a></li>
+    <li><a href="rentals.html">Rentals</a></li>
+    <li><a href="company.html">Company</a></li>
+    <li><a href="https://triplediamond.managebuilding.com/Resident/portal/login" class="nav-signin">Sign In</a></li>
+    <li><a href="https://triplediamond.managebuilding.com/Resident/rental-application/new" class="nav-cta">Apply Now</a></li>
+  </ul>
+  <button class="menu-toggle" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="owners.html" onclick="toggleMenu()">Owners</a>
+  <a href="residents.html" onclick="toggleMenu()">Residents</a>
+  <a href="referrals.html" onclick="toggleMenu()">Realtors</a>
+  <a href="rentals.html" onclick="toggleMenu()">Rentals</a>
+  <a href="company.html" onclick="toggleMenu()">Company</a>
+  <a href="https://triplediamond.managebuilding.com/Resident/portal/login" onclick="toggleMenu()">Sign In</a>
+  <a href="https://triplediamond.managebuilding.com/Resident/rental-application/new" onclick="toggleMenu()">Apply Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-photo">
+    <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=80" alt="Colonial home with manicured lawn" loading="eager">
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Michigan Property Management</p>
+    <h1 class="hero-headline">Good property management starts with answering the phone.</h1>
+    <p class="hero-body">A Shelby Township team for owners, residents, and Realtors who want straight answers and a real person on the other end.</p>
+    <a href="rentals.html" class="hero-link">View rentals &rarr;</a>
+  </div>
+</section>
+
+<!-- AUDIENCE PATHS -->
+<section class="audience">
+  <div class="audience-inner">
+    <p class="audience-label">Who We Work With</p>
+
+    <div class="audience-primary">
+      <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80" alt="Suburban home at dusk" loading="lazy">
+      <div class="audience-primary-overlay">
+        <h3>Property Owners</h3>
+        <p>Tell us where it is and what&rsquo;s happening.</p>
+        <a href="owners.html">Learn more &rarr;</a>
+      </div>
+    </div>
+
+    <div class="audience-secondary">
+      <div class="audience-card">
+        <h3>Residents</h3>
+        <p>See what&rsquo;s open, apply, or get to your account.</p>
+        <a href="residents.html">Resident resources &rarr;</a>
+      </div>
+      <div class="audience-card">
+        <h3>Realtors</h3>
+        <p>Make the introduction. We&rsquo;ll handle the management conversation.</p>
+        <a href="referrals.html">Referral program &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO BREAK -->
+<div class="photo-break">
+  <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=1600&q=80" alt="House exterior in warm light" loading="lazy">
+</div>
+
+<!-- MISSION -->
+<section class="mission">
+  <div class="mission-inner">
+    <div class="mission-quote">
+      <h2 class="mission-headline">The work is personal, even when the paperwork isn&rsquo;t.</h2>
+      <p class="mission-sub">Every address has its own market, condition, people, and pressure points.</p>
+    </div>
+    <div class="mission-values">
+      <p class="mission-values-label">What Guides Us</p>
+      <ul>
+        <li>Open communication</li>
+        <li>Transparent decisions</li>
+        <li>Personal solutions</li>
+        <li>Continuous improvement</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROPERTIES -->
+<section class="properties">
+  <div class="properties-header">
+    <div>
+      <p class="properties-label">Current Rentals</p>
+      <h2 class="properties-headline">Available properties</h2>
+    </div>
+    <a href="rentals.html" class="properties-all">View all &rarr;</a>
+  </div>
+  <div class="properties-strip">
+    <div class="prop-card">
+      <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80" alt="15829 Minock St, Detroit" loading="lazy">
+      <div class="prop-info">
+        <p class="prop-price">$1,550/mo</p>
+        <p class="prop-address">15829 Minock St, Detroit</p>
+        <p class="prop-details">3 bd &middot; 1.5 ba &middot; 1,200 sqft</p>
+      </div>
+    </div>
+    <div class="prop-card">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="11259 Chapp Ave, Warren" loading="lazy">
+      <div class="prop-info">
+        <p class="prop-price">$1,900/mo</p>
+        <p class="prop-address">11259 Chapp Ave, Warren</p>
+        <p class="prop-details">3 bd &middot; 1.5 ba &middot; 1,901 sqft</p>
+      </div>
+    </div>
+    <div class="prop-card">
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80" alt="28777 Berwick Ct, New Baltimore" loading="lazy">
+      <div class="prop-info">
+        <p class="prop-price">$2,100/mo</p>
+        <p class="prop-address">28777 Berwick Ct, New Baltimore</p>
+        <p class="prop-details">2 bd &middot; 2 ba &middot; 1,659 sqft</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="process-inner">
+    <p class="process-label">How It Works</p>
+
+    <div class="process-row">
+      <p class="process-row-title">What you bring</p>
+      <p class="process-row-body">The address, the situation, and whatever questions you have. We&rsquo;ll walk through the property details, your goals, and what management looks like for your specific case.</p>
+    </div>
+
+    <div class="process-row">
+      <p class="process-row-title">What stays secure</p>
+      <p class="process-row-body">Your financials, tenant information, and property records are kept in encrypted, access-controlled systems. We don&rsquo;t cut corners on data handling.</p>
+    </div>
+
+    <div class="process-row">
+      <p class="process-row-title">Who answers</p>
+      <p class="process-row-body">A real person in Shelby Township. Not a call center, not a chatbot, not a phone tree. You call, we pick up.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq-inner">
+    <p class="faq-label">Common Questions</p>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>How much does property management cost?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          It depends on the property, the services you need, and the rental market in your area. We&rsquo;ll give you a straightforward quote after we understand the full picture&mdash;no hidden fees, no vague percentages without context.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>I already have tenants. Can you take over management?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Yes. We handle transitions regularly. We&rsquo;ll review the existing lease, introduce ourselves to the tenants, and set up proper documentation and payment systems so nothing falls through the cracks.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>What areas do you cover?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          We manage properties across Macomb, Oakland, and Wayne counties. If you&rsquo;re not sure whether your property falls within our service area, call us. It&rsquo;s a short conversation.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="cta-headline">Put the address on the table.</h2>
+  <a href="company.html#contact" class="cta-btn">Get in Touch</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <p class="footer-brand">Triple Diamond Property Management</p>
+      <div class="footer-address">
+        <p>49433 Hayes Road, Suite A</p>
+        <p>Shelby Township, MI 48315</p>
+        <p style="margin-top:.5rem"><a href="tel:5863211391">586-321-1391</a></p>
+        <p><a href="mailto:admin@triplediamondrealty.com">admin@triplediamondrealty.com</a></p>
+      </div>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Services</p>
+      <ul>
+        <li><a href="owners.html">Property Owners</a></li>
+        <li><a href="residents.html">Residents</a></li>
+        <li><a href="referrals.html">Realtors</a></li>
+        <li><a href="rentals.html">Available Rentals</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Company</p>
+      <ul>
+        <li><a href="company.html">About</a></li>
+        <li><a href="company.html#contact">Contact</a></li>
+        <li><a href="https://triplediamond.managebuilding.com/Resident/portal/login">Resident Portal</a></li>
+        <li><a href="https://triplediamond.managebuilding.com/Resident/rental-application/new">Apply Now</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Triple Diamond Property Management, L.L.C. All rights reserved.</p>
+    <p><a href="#">Privacy Policy</a></p>
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.body.classList.toggle('menu-open');
+  document.getElementById('mobileNav').classList.toggle('active');
+}
+
+function toggleFaq(btn) {
+  var item = btn.parentElement;
+  var wasOpen = item.classList.contains('open');
+  // close all
+  document.querySelectorAll('.faq-item').forEach(function(el) {
+    el.classList.remove('open');
+  });
+  // open clicked if it was closed
+  if (!wasOpen) {
+    item.classList.add('open');
+  }
+}
+
+// shrink nav on scroll
+window.addEventListener('scroll', function() {
+  var nav = document.getElementById('navbar');
+  if (window.scrollY > 40) {
+    nav.style.background = 'rgba(247,243,235,.97)';
+    nav.style.backdropFilter = 'blur(8px)';
+  } else {
+    nav.style.background = 'var(--cream)';
+    nav.style.backdropFilter = 'none';
+  }
+});
+</script>
+
+</body>
+</html>
