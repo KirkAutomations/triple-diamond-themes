@@ -1,4 +1,6 @@
 qa*/
 qa.js
+qa_v2.js
 rebuild_v2.py
+build_character_v2.py
 *.log
