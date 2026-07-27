@@ -1,0 +1,132 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Triple Diamond — GREAT LAKES</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+@property --gem-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+
+:root{--bg:#f5fafb;--text:#0b3246;--dim:#526d7a;--accent:#066b91;--gold:#2a9ec0;--border:rgba(6,107,145,.12)}
+html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 5vw;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(var(--bg) 60%,transparent);color:var(--text)}
+.nav-logo{display:flex;align-items:center;gap:10px}.nav-logo img{height:26px}.nav-logo span{font-weight:600;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase}
+.nav-cta{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:7px 18px;transition:.3s}.nav-cta:hover{background:var(--accent);color:#fff}
+/* hero — asymmetric with floating card */
+.gl-hero{min-height:100vh;max-height:820px;display:grid;grid-template-columns:3fr 2fr;align-items:center;padding:80px 6vw 50px;position:relative;overflow:hidden}
+.gl-hero:before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.06;
+  background-image:url("data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23066b91' stroke-width='1'%3E%3Cpath d='M-20 80C90 10 130 170 250 90S390 40 450 120'/%3E%3Cpath d='M-30 130C80 60 170 210 270 145S390 100 455 170'/%3E%3Cpath d='M-10 205C95 135 170 280 295 210S400 190 450 235'/%3E%3C/g%3E%3C/svg%3E")}
+.gl-hero>*{position:relative;z-index:2}
+.gl-hero h1{font-size:clamp(2.4rem,4.2vw,3.6rem);font-weight:700;line-height:.96;border-left:6px solid var(--accent);padding-left:20px}
+.gl-hero p{color:var(--dim);font-size:.88rem;line-height:1.65;margin:16px 0 22px;max-width:380px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero-ctas a{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:11px 22px;transition:.3s}
+.btn-fill{background:var(--accent);color:#fff}.btn-line{border:1px solid var(--text);color:var(--text)}
+.hero-ctas a:hover{transform:translateY(-2px)}
+.gl-float-card{background:var(--text);color:#fff;padding:26px 22px;border-left:4px solid var(--accent);box-shadow:10px 10px 0 color-mix(in srgb,var(--accent) 14%,transparent)}
+.gl-float-card h3{font-size:.82rem;font-weight:600;margin-bottom:8px}
+.gl-float-card p{font-size:.72rem;line-height:1.6;color:#b2ced7;margin-bottom:4px}
+.gl-float-card a{color:var(--gold)}
+.gl-gems{display:flex;gap:5px;margin-top:12px}
+.gl-gems i{width:8px;height:8px;background:var(--gold);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);opacity:.6}
+/* property stagger (not equal grid) */
+.gl-properties{padding:24px 6vw 36px;max-width:1100px;margin:0 auto}
+.gl-properties h2{font-size:1.1rem;font-weight:600;margin-bottom:16px}
+.gl-stagger{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+.gl-card{position:relative;overflow:hidden;background:#fff;border:1px solid var(--border);clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);transition:transform .3s,border-color .3s}
+.gl-card:hover{transform:translateY(-3px);border-color:var(--accent)}
+.gl-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.gl-card:first-child img{aspect-ratio:16/9}
+.gl-card-info{padding:12px 14px}
+.gl-card-info b{font-size:.82rem}.gl-card-info span{display:block;font-size:.62rem;color:var(--dim);margin-top:2px}
+.gl-all{display:block;margin-top:12px;color:var(--accent);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;text-align:right}
+/* owner waterline */
+.gl-owner{padding:16px 6vw;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:14px}
+.gl-owner-main{display:grid;grid-template-columns:3fr 2fr;background:var(--accent);color:#fff;overflow:hidden;clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);transition:transform .3s}
+.gl-owner-main:hover{transform:translateY(-2px)}
+.gl-owner-main img{width:100%;height:100%;min-height:180px;object-fit:cover}
+.gl-ow-body{padding:24px;display:flex;flex-direction:column;justify-content:center}
+.gl-ow-body h3{font-size:1.05rem;font-weight:600;margin-bottom:6px}
+.gl-ow-body p{font-size:.8rem;line-height:1.6;opacity:.9;margin-bottom:12px}
+.gl-ow-body .goto{color:#fff;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}
+.gl-sec-row{display:grid;grid-template-columns:5fr 3fr;gap:14px}
+.gl-sec{background:#fff;border:1px solid var(--border);padding:20px;transition:border-color .3s,transform .3s}
+.gl-sec:hover{border-color:var(--accent);transform:translateY(-2px)}
+.gl-sec h4{font-size:.86rem;font-weight:600;margin-bottom:4px}
+.gl-sec p{color:var(--dim);font-size:.74rem;line-height:1.5;margin-bottom:8px}
+.goto{color:var(--accent);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}
+/* contact */
+.contact-wrap{padding:28px 6vw 48px;display:flex;justify-content:center}
+.contact-card{background:#fff;border:1px solid var(--border);padding:32px;max-width:520px;width:100%;box-shadow:4px 4px 0 rgba(6,107,145,.1);clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px)}
+.contact-card h2{font-size:1.05rem;font-weight:600;margin-bottom:3px}
+.contact-card .sub{color:var(--dim);font-size:.7rem;margin-bottom:16px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;margin-bottom:18px}
+.contact-item{font-size:.74rem;line-height:1.6}.contact-item span{display:block;color:var(--dim);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.contact-item a{color:var(--accent);word-break:break-all}
+.contact-cta{display:block;background:var(--accent);color:#fff;text-align:center;padding:12px;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:.3s}.contact-cta:hover{transform:translateY(-2px)}
+footer{padding:20px 6vw;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:.58rem;color:var(--dim)}
+@media(max-width:860px){.gl-hero{grid-template-columns:1fr;text-align:center;min-height:auto;padding-top:80px}.gl-hero h1{border-left:0;padding-left:0;border-bottom:4px solid var(--accent);padding-bottom:8px;display:inline-block}.gl-hero p{margin:16px auto 22px}.hero-ctas{justify-content:center}.gl-float-card{margin-top:24px}.gl-stagger{grid-template-columns:1fr 1fr}.gl-card:first-child{grid-column:1/-1}.gl-owner-main{grid-template-columns:1fr}.gl-sec-row{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr}footer{flex-direction:column;gap:6px;text-align:center}}
+@media(max-width:480px){.gl-hero h1{font-size:2.2rem}.gl-stagger{grid-template-columns:1fr}}
+
+</style></head>
+<body>
+<nav>
+  <div class="nav-logo"><img src="assets/logo.png" alt="Triple Diamond"><span>Triple Diamond</span></div>
+  <a class="nav-cta" href="tel:5863211391">586-321-1391</a>
+</nav>
+
+<section class="gl-hero">
+  <div>
+    <h1>Clear direction for every side of the property.</h1>
+    <p>Simple routes. No counterfeit portal. You call, we answer, the property gets managed.</p>
+    <div class="hero-ctas">
+      <a class="btn-fill" href="owners.html">I own property</a>
+      <a class="btn-line" href="listings.html">I need a home</a>
+    </div>
+  </div>
+  <div>
+    <div class="gl-float-card">
+      <h3>Triple Diamond Property Management, L.L.C.</h3>
+      <p>49433 Hayes Road, STE A &middot; Shelby Twp, MI 48315</p>
+      <p><a href="tel:5863211391">586-321-1391</a></p>
+      <div class="gl-gems"><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</section>
+
+<section class="gl-properties">
+  <h2>Available now</h2>
+  <div class="gl-stagger">
+    <a class="gl-card" href="listings.html"><img src="assets/chapp-front.jpg" alt="Chapp"><div class="gl-card-info"><b>11259 Chapp</b><span>Warren, MI</span></div></a>
+    <a class="gl-card" href="listings.html"><img src="assets/berwick-living.jpg" alt="Berwick"><div class="gl-card-info"><b>28777 Berwick Ct</b><span>New Baltimore, MI</span></div></a>
+    <a class="gl-card" href="listings.html"><img src="assets/minock-kitchen.jpg" alt="Minock"><div class="gl-card-info"><b>15829 Minock</b><span>Detroit, MI</span></div></a>
+  </div>
+  <a class="gl-all" href="listings.html">All listings &rarr;</a>
+</section>
+
+<section class="gl-owner">
+  <a class="gl-owner-main" href="owners.html">
+    <img src="assets/berwick-kitchen.jpg" alt="Property interior">
+    <div class="gl-ow-body"><h3>Property Owners</h3><p>Management from screening to accounting. One contact for the whole building.</p><span class="goto">Discuss your property &rarr;</span></div>
+  </a>
+  <div class="gl-sec-row">
+    <a class="gl-sec" href="listings.html"><h4>Residents</h4><p>Applications, payments, maintenance requests online. Emergency line 24/7.</p><span class="goto">Browse homes &rarr;</span></a>
+    <a class="gl-sec" href="referrals.html"><h4>Agents</h4><p>Referral stays protected. We handle the property.</p><span class="goto">Send referral &rarr;</span></a>
+  </div>
+</section>
+
+<section class="contact-wrap">
+  <div class="contact-card">
+    <h2>Triple Diamond Property Management</h2>
+    <p class="sub">L.L.C. &middot; Shelby Township, Michigan</p>
+    <div class="contact-grid">
+      <div class="contact-item"><span>Office</span>49433 Hayes Road, STE A<br>Shelby Twp, MI 48315</div>
+      <div class="contact-item"><span>Phone</span><a href="tel:5863211391">586-321-1391</a></div>
+      <div class="contact-item"><span>Email</span><a href="mailto:admin@triplediamondrealty.com">admin@triplediamondrealty.com</a></div>
+      <div class="contact-item"><span>Hours</span>Mon&ndash;Fri 9am&ndash;5pm<br>Emergencies: 24/7</div>
+    </div>
+    <a class="contact-cta" href="mailto:admin@triplediamondrealty.com">Get in touch</a>
+  </div>
+</section>
+
+<footer><span>&copy; 2026 Triple Diamond Property Management, L.L.C.</span><a href="https://triplediamondrealty.com">triplediamondrealty.com</a></footer>
+</body></html>

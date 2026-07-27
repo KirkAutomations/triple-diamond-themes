@@ -1,0 +1,138 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Triple Diamond — PORTFOLIO</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+@property --gem-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+
+:root{--bg:#141414;--text:#f4f0e8;--dim:#aaa69e;--accent:#b54d34;--gold:#d4a44a;--border:rgba(181,77,52,.2)}
+html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 5vw;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(var(--bg) 60%,transparent)}
+.nav-logo{display:flex;align-items:center;gap:10px}.nav-logo img{height:26px}.nav-logo span{font-weight:600;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase}
+.nav-cta{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(181,77,52,.5);padding:7px 18px;transition:.3s}.nav-cta:hover{background:var(--accent);color:#fff}
+/* hero mosaic */
+.portfolio-hero{padding:100px 6vw 40px}
+.mosaic{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:6px;max-width:960px;margin-bottom:28px}
+.m-main{grid-row:1/3;position:relative;overflow:hidden;clip-path:polygon(16px 0,100% 0,100% 100%,0 100%,0 16px)}
+.m-side{position:relative;overflow:hidden;clip-path:polygon(12px 0,100% 0,100% 100%,0 100%,0 12px)}
+.mosaic img{width:100%;height:100%;object-fit:cover;filter:saturate(.85) contrast(1.05);transition:filter .4s}
+.mosaic a:hover img{filter:saturate(1) contrast(1)}
+.m-cap{position:absolute;bottom:10px;left:12px;background:#101010;color:#fff;font-size:.58rem;letter-spacing:.08em;padding:6px 10px;text-transform:uppercase;box-shadow:0 0 0 1px rgba(255,255,255,.2)}
+.p-copy h1{font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:.98;max-width:700px}
+.p-copy p{color:var(--dim);font-size:.88rem;line-height:1.65;margin:14px 0 20px;max-width:500px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero-ctas a{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:11px 22px;transition:.3s}
+.btn-fill{background:var(--accent);color:#fff}.btn-line{border:1px solid rgba(255,255,255,.25);color:var(--text)}
+.hero-ctas a:hover{transform:translateY(-2px)}
+/* contact sheet listings */
+.contact-sheet{padding:24px 6vw 36px;max-width:1100px;margin:0 auto}
+.contact-sheet h2{font-size:1.1rem;font-weight:600;margin-bottom:16px}
+.cs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.cs-card{position:relative;overflow:hidden;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);transition:transform .3s}
+.cs-card:hover{transform:translateY(-3px)}
+.cs-card img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:saturate(.85) contrast(1.05);transition:filter .3s}
+.cs-card:hover img{filter:saturate(1) contrast(1)}
+.cs-info{padding:10px 12px;background:rgba(255,255,255,.03)}
+.cs-info b{font-size:.78rem}.cs-info span{display:block;font-size:.6rem;color:var(--dim);margin-top:2px}
+.cs-all{display:block;margin-top:12px;color:var(--accent);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;text-align:right}
+/* triple meaning band */
+.triple-band{padding:24px 6vw;max-width:1100px;margin:0 auto;background:var(--accent);clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px)}
+.triple-band-inner{display:flex;align-items:center;justify-content:center;gap:22px;padding:24px 16px;color:#fff;text-align:center}
+.triple-band-inner i{width:16px;height:16px;background:#fff;clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);opacity:.5;flex-shrink:0}
+.triple-band-inner h3{font-size:1rem;font-weight:600}
+.triple-band-inner p{font-size:.78rem;opacity:.85;margin-top:3px}
+/* owner band (stacked, not cards) */
+.audience{padding:24px 6vw 36px;max-width:1100px;margin:0 auto}
+.audience-primary{display:grid;grid-template-columns:5fr 3fr;background:rgba(255,255,255,.04);border:1px solid var(--border);overflow:hidden;clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);margin-bottom:14px;transition:border-color .3s}
+.audience-primary:hover{border-color:var(--accent)}
+.audience-primary img{width:100%;height:100%;min-height:180px;object-fit:cover}
+.aud-body{padding:24px;display:flex;flex-direction:column;justify-content:center}
+.aud-body h3{font-size:1rem;font-weight:600;margin-bottom:6px}
+.aud-body p{color:var(--dim);font-size:.8rem;line-height:1.6;margin-bottom:12px}
+.goto{color:var(--accent);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}
+.audience-row{display:flex;gap:14px}
+.aud-small{flex:1;background:rgba(255,255,255,.03);border:1px solid var(--border);padding:18px 16px;transition:border-color .3s,transform .3s}
+.aud-small:first-child{flex:2}
+.aud-small:hover{border-color:var(--accent);transform:translateY(-2px)}
+.aud-small h4{font-size:.86rem;font-weight:600;margin-bottom:4px}
+.aud-small p{color:var(--dim);font-size:.74rem;line-height:1.5;margin-bottom:8px}
+/* contact */
+.contact-wrap{padding:28px 6vw 48px;display:flex;justify-content:center}
+.contact-card{background:#1e1e1e;border:1px solid var(--border);padding:32px;max-width:520px;width:100%;clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.contact-card h2{font-size:1.05rem;font-weight:600;margin-bottom:3px}
+.contact-card .sub{color:var(--dim);font-size:.7rem;margin-bottom:16px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;margin-bottom:18px}
+.contact-item{font-size:.74rem;line-height:1.6}.contact-item span{display:block;color:var(--dim);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.contact-item a{color:var(--accent);word-break:break-all}
+.contact-cta{display:block;background:var(--accent);color:#fff;text-align:center;padding:12px;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:.3s}.contact-cta:hover{transform:translateY(-2px)}
+footer{padding:20px 6vw;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;font-size:.58rem;color:var(--dim)}
+@media(max-width:860px){.mosaic{grid-template-columns:1fr;grid-template-rows:auto}.m-main{grid-row:auto}.p-copy{text-align:center}.p-copy p{margin:14px auto 20px}.hero-ctas{justify-content:center}.cs-grid{grid-template-columns:1fr 1fr}.audience-primary{grid-template-columns:1fr}.audience-row{flex-direction:column}.aud-small:first-child{flex:1}.contact-grid{grid-template-columns:1fr}footer{flex-direction:column;gap:6px;text-align:center}}
+@media(max-width:480px){.cs-grid{grid-template-columns:1fr}.p-copy h1{font-size:2rem}}
+
+</style></head>
+<body>
+<nav>
+  <div class="nav-logo"><img src="assets/logo.png" alt="Triple Diamond"><span>Triple Diamond</span></div>
+  <a class="nav-cta" href="tel:5863211391">586-321-1391</a>
+</nav>
+
+<section class="portfolio-hero">
+  <div class="mosaic">
+    <a class="m-main" href="listings.html"><img src="assets/chapp-front.jpg" alt="11259 Chapp"><span class="m-cap">11259 Chapp / Warren</span></a>
+    <a class="m-side" href="listings.html"><img src="assets/berwick-kitchen-2.jpg" alt="28777 Berwick kitchen"><span class="m-cap">28777 Berwick / New Baltimore</span></a>
+    <a class="m-side" href="listings.html"><img src="assets/chapp-deck.jpg" alt="11259 Chapp deck"><span class="m-cap">11259 Chapp / Warren</span></a>
+  </div>
+  <div class="p-copy">
+    <h1>The property is real. The relationship should be too.</h1>
+    <p>Three homes. Three different management realities. All of them ours.</p>
+    <div class="hero-ctas">
+      <a class="btn-fill" href="owners.html">I own property</a>
+      <a class="btn-line" href="listings.html">I need a home</a>
+    </div>
+  </div>
+</section>
+
+<section class="contact-sheet">
+  <h2>Current inventory</h2>
+  <div class="cs-grid">
+    <a class="cs-card" href="listings.html"><img src="assets/chapp-kitchen.jpg" alt="Chapp kitchen"><div class="cs-info"><b>11259 Chapp</b><span>Warren, MI</span></div></a>
+    <a class="cs-card" href="listings.html"><img src="assets/berwick-living.jpg" alt="Berwick living"><div class="cs-info"><b>28777 Berwick Ct</b><span>New Baltimore, MI</span></div></a>
+    <a class="cs-card" href="listings.html"><img src="assets/minock-kitchen.jpg" alt="Minock kitchen"><div class="cs-info"><b>15829 Minock</b><span>Detroit, MI</span></div></a>
+  </div>
+  <a class="cs-all" href="listings.html">All listings &rarr;</a>
+</section>
+
+<section class="triple-band">
+  <div class="triple-band-inner">
+    <i></i><div><h3>Property &middot; People &middot; Place</h3><p>That's the Triple Diamond. One company. Three things we actually do.</p></div><i></i>
+  </div>
+</section>
+
+<section class="audience">
+  <a class="audience-primary" href="owners.html">
+    <img src="assets/chapp-kitchen-beam.jpg" alt="Property interior">
+    <div class="aud-body"><h3>Property Owners</h3><p>Management from screening to accounting. One contact for the whole building.</p><span class="goto">Discuss your property &rarr;</span></div>
+  </a>
+  <div class="audience-row">
+    <a class="aud-small" href="listings.html"><h4>Residents</h4><p>Applications, payments, maintenance requests online. Emergency line 24/7.</p><span class="goto">Browse homes &rarr;</span></a>
+    <a class="aud-small" href="referrals.html"><h4>Agents</h4><p>Referral stays protected.</p><span class="goto">Send referral &rarr;</span></a>
+  </div>
+</section>
+
+<section class="contact-wrap">
+  <div class="contact-card">
+    <h2>Triple Diamond Property Management</h2>
+    <p class="sub">L.L.C. &middot; Shelby Township, Michigan</p>
+    <div class="contact-grid">
+      <div class="contact-item"><span>Office</span>49433 Hayes Road, STE A<br>Shelby Twp, MI 48315</div>
+      <div class="contact-item"><span>Phone</span><a href="tel:5863211391">586-321-1391</a></div>
+      <div class="contact-item"><span>Email</span><a href="mailto:admin@triplediamondrealty.com">admin@triplediamondrealty.com</a></div>
+      <div class="contact-item"><span>Hours</span>Mon&ndash;Fri 9am&ndash;5pm<br>Emergencies: 24/7</div>
+    </div>
+    <a class="contact-cta" href="mailto:admin@triplediamondrealty.com">Get in touch</a>
+  </div>
+</section>
+
+<footer><span>&copy; 2026 Triple Diamond Property Management, L.L.C.</span><a href="https://triplediamondrealty.com">triplediamondrealty.com</a></footer>
+</body></html>
